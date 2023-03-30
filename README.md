@@ -21,6 +21,7 @@ O Projeto é um microserviço REST API e está desenvolvido no padrão MVC utili
 - [Maven] - Gerenciador de dependências do java
 - [Spring Boot] - Framework Java para auxiliar no desenvolvimento da aplicação
 - [Mysql] - Banco de dados relacional
+- [Swagger] - Documentação das API's
 
 
 ## Subindo aplicação
