@@ -61,12 +61,12 @@ public class CartaoControllerTest {
 
     @Test
     public void consultarSaldoQuandoCartaoNaoEncontradoRetornarException() throws Exception {
-        when(service.find(eq(NUMERO_CARTAO))).thenThrow(CartaoNaoEncontradoExcetion.class);
+        when(service.getSaldo(eq(NUMERO_CARTAO))).thenThrow(CartaoNaoEncontradoExcetion.class);
 
         this.mockMvc.perform(get(URI.concat("/").concat(NUMERO_CARTAO)))
                 .andExpect(status().isNotFound());
 
-        verify(service, times(1)).find(eq(NUMERO_CARTAO));
+        verify(service, times(1)).getSaldo(eq(NUMERO_CARTAO));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CartaoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(BigDecimal.ONE.toString()));
 
-        verify(service, times(1)).find(eq(NUMERO_CARTAO));
+        verify(service, times(1)).getSaldo(eq(NUMERO_CARTAO));
     }
 
 }

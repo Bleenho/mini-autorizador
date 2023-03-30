@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static br.com.vr.miniautorizador.util.Constants.*;
 import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -58,20 +59,20 @@ public class CartaoServiceTest {
     }
 
     @Test
-    void quandoFindEncontrarCartaoRetornaSaldo() {
+    void quandoGetSaldoEncontrarCartaoRetornaSaldo() {
         given(this.repository.findByNumeroCartao(NUMERO_CARTAO))
-                .willReturn(Optional.of(ENTITY));
+                .willReturn(Optional.of(new CartaoEntity(null, null, null, TEN)));
 
-        var retorno = service.find(NUMERO_CARTAO);
-        assertThat(retorno).isEqualTo(ONE);
+        var retorno = service.getSaldo(NUMERO_CARTAO);
+        assertThat(retorno).isEqualTo(TEN);
     }
 
     @Test
-    void quandoFindEncontrarCartaoRetornaException() {
+    void quandoGetSaldoEncontrarCartaoRetornaException() {
         given(this.repository.findByNumeroCartao(NUMERO_CARTAO))
                 .willReturn(Optional.empty());
 
         Assertions.assertThrows(CartaoNaoEncontradoExcetion.class, () ->
-                service.find(NUMERO_CARTAO), "CartaoNaoEncontradoExcetion error was expected");
+                service.getSaldo(NUMERO_CARTAO), "CartaoNaoEncontradoExcetion error was expected");
     }
 }

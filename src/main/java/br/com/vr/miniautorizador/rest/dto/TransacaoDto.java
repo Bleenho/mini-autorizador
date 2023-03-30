@@ -1,5 +1,6 @@
 package br.com.vr.miniautorizador.rest.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -11,7 +12,10 @@ import java.math.BigDecimal;
 @ToString
 public class TransacaoDto {
 
+    @NotNull
     private String numeroCartao;
+    @NotNull
     private String senha;
+    @NotNull
     private BigDecimal valor;
 }

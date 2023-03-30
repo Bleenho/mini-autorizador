@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.vr</groupId>
 	<artifactId>mini-autorizador</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>mini-autorizador</name>
 	<description>Realizar cadastro de cartão, consulta de saldo e transações.</description>
 	<properties>
@@ -56,17 +56,6 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.0.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>
