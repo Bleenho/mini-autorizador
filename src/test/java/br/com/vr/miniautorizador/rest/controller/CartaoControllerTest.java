@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.math.BigDecimal;
 
+import static br.com.vr.miniautorizador.util.Constants.CARTAO;
+import static br.com.vr.miniautorizador.util.Constants.NUMERO_CARTAO;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,10 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CartaoController.class)
 public class CartaoControllerTest {
 
-    private static final String NUMERO_CARTAO = "6549873025634501";
-    private static final String SENHA = "1234";
     private static final String URI = "/cartoes";
-    private static final CartaoDto cartao = new CartaoDto(NUMERO_CARTAO, SENHA);
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,9 +46,9 @@ public class CartaoControllerTest {
 
     private void testeRegitrarCartao(HttpStatus httpStatus, ResultMatcher resultMatcher) throws Exception {
         var response = ResponseEntity.status(httpStatus)
-                .body(cartao);
-        var cartaoJson = new ObjectMapper().writeValueAsString(cartao);
-        when(service.register(any(CartaoDto.class))).thenReturn(response);
+                .body(CARTAO);
+        var cartaoJson = new ObjectMapper().writeValueAsString(CARTAO);
+        when(service.cadastrar(any(CartaoDto.class))).thenReturn(response);
 
         this.mockMvc.perform(post(URI)
                         .contentType("application/json")
@@ -57,7 +56,7 @@ public class CartaoControllerTest {
                 .andExpect(resultMatcher)
                 .andExpect(content().json(cartaoJson));
 
-        verify(service, times(1)).register(any(CartaoDto.class));
+        verify(service, times(1)).cadastrar(any(CartaoDto.class));
     }
 
     @Test
@@ -72,7 +71,7 @@ public class CartaoControllerTest {
 
     @Test
     public void consultarSaldoQuandoCartaoEncontradoRetornarSaldoSucesso() throws Exception {
-        when(service.find(eq(NUMERO_CARTAO))).thenReturn(BigDecimal.ONE);
+        when(service.getSaldo(eq(NUMERO_CARTAO))).thenReturn(BigDecimal.ONE);
 
         this.mockMvc.perform(get(URI.concat("/").concat(NUMERO_CARTAO)))
                 .andExpect(status().isOk())

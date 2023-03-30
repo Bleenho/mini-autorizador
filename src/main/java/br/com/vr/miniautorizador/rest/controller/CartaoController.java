@@ -2,6 +2,7 @@ package br.com.vr.miniautorizador.rest.controller;
 
 import br.com.vr.miniautorizador.rest.dto.CartaoDto;
 import br.com.vr.miniautorizador.service.CartaoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,9 @@ public class CartaoController {
     private CartaoService service;
 
     @PostMapping
-    public ResponseEntity<CartaoDto> post(@RequestBody CartaoDto request) {
+    public ResponseEntity<CartaoDto> post(@Valid @RequestBody CartaoDto request) {
         log.info("Criação do cartão: {}", request);
-        return service.register(request);
+        return service.cadastrar(request);
     }
 
     @GetMapping("/{numeroCartao}")
@@ -29,6 +30,6 @@ public class CartaoController {
         log.info("Consultando saldo do cartão: {}", numeroCartao);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(service.find(numeroCartao));
+                .body(service.getSaldo(numeroCartao));
     }
 }

@@ -17,7 +17,7 @@ public class CartaoService {
 
     private CartaoRepository repository;
 
-    public ResponseEntity<CartaoDto> register(CartaoDto request) {
+    public ResponseEntity<CartaoDto> cadastrar(CartaoDto request) {
 
         var findEntity = repository.findByNumeroCartao(request.getNumeroCartao());
 
@@ -27,10 +27,19 @@ public class CartaoService {
                         .body(new CartaoDto(repository.save(new CartaoEntity(request)))));
     }
 
-    public BigDecimal find(String numeroCartao) {
-        var findEntity = repository.findByNumeroCartao(numeroCartao)
-                .orElseThrow(CartaoNaoEncontradoExcetion::new);
+    public BigDecimal getSaldo(String numeroCartao) {
+        var findEntity = find(numeroCartao);
 
         return findEntity.getSaldo();
+    }
+
+    public CartaoEntity find(String numeroCartao) {
+        return repository.findByNumeroCartao(numeroCartao)
+                .orElseThrow(CartaoNaoEncontradoExcetion::new);
+
+    }
+
+    public void save(CartaoEntity entity) {
+        repository.save(entity);
     }
 }

@@ -50,7 +50,7 @@ public class CartaoServiceTest {
     }
 
     private void testeRegister(HttpStatus unprocessableEntity, int times) {
-        var retorno = service.register(CARTAO);
+        var retorno = service.cadastrar(CARTAO);
 
         assertThat(retorno.getBody()).isEqualTo(CARTAO);
         assertThat(retorno.getStatusCode()).isEqualTo(unprocessableEntity);

@@ -1,21 +1,25 @@
 package br.com.vr.miniautorizador.exception;
 
 
-import lombok.extern.slf4j.Slf4j;
+import br.com.vr.miniautorizador.exception.constants.TransacaoExceptionEnum;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-@Slf4j
 public class HandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CartaoNaoEncontradoExcetion.class)
-    public ResponseEntity<Void> handleFraudeException() {
-        log.info("Cartão nao encontrado");
+    public ResponseEntity<Void> handleCartaoNaoEncontradoExcetion() {
         return ResponseEntity
                 .notFound().build();
     }
 
+    @ExceptionHandler(TransacaoException.class)
+    public ResponseEntity<TransacaoExceptionEnum> handleTransacaoException(TransacaoException ex) {
+        return ResponseEntity
+                .unprocessableEntity()
+                .body(ex.getRegra());
+    }
 }
