@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Entity
 @Table(name = "tb_cartao")
@@ -33,5 +32,9 @@ public class CartaoEntity {
         this.numeroCartao = request.getNumeroCartao();
         this.senha = request.getSenha();
         this.saldo = SALDO_INICIAL;
+    }
+
+    public CartaoEntity(Long id) {
+        this.id = id;
     }
 }

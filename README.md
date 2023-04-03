@@ -23,6 +23,8 @@ O Projeto é um microserviço REST API e está desenvolvido no padrão MVC utili
 - [Mysql] - Banco de dados relacional
 - [Swagger] - Documentação das API's
 
+> Para garantir que 2 transações disparadas ao mesmo tempo não causem problemas relacionados à concorrência em instâncias diferentes da aplicação é verificado se possui alguma transação em execução para o cartão(Transação iniciada mas não fechada) antes de validar dados e realizar transação, caso não tenha nenhuma transação pendente o sistema inicia uma transação, tenta executar a transação e registra o fim desta transação mesmo se tiver erro.
+> No caso da concorrencia a segunda instancia irá retorna erro de concorrencia pois já possui transação em andamento
 
 ## Subindo aplicação
 
